@@ -336,6 +336,7 @@ nav {
 
 @media(max-width:900px) {
     .hero .wrap {
+        padding-top: 15px;
         grid-template-columns: 1fr;
     }
 
