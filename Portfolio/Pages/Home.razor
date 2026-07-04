@@ -1,0 +1,285 @@
+﻿@page "/"
+@inject IJSRuntime JS
+@using System.Linq
+<PageTitle>Michel Hamzo — Full-Stack Software Engineer</PageTitle>
+
+<nav>
+    <div class="wrap">
+        <div class="nav-logo">M<span>H</span>.</div>
+        <div class="nav-links" id="navLinks">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact" class="nav-cta">Get in touch</a>
+        </div>
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="wrap">
+        <div>
+            <div class="eyebrow">Full-Stack Software Engineer</div>
+            <h1>I build software<br>from the <span class="accent">database</span><br>to the interface.</h1>
+            <p class="lead">Michel Hamzo — full-stack developer working across .NET, Vue, and Flutter. I own features end-to-end: schema, API, and UI.</p>
+            <div class="hero-ctas">
+                <a href="#projects" class="btn btn-primary">View Projects →</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+        <div class="stack-visual">
+            <div class="connector"></div>
+            <div class="packet"></div>
+            <div class="packet" style="animation-delay:1.6s"></div>
+            <div class="stack-block block-ui">
+                <div class="layer-label">Layer 01</div>
+                <div class="layer-title">UI — Vue </div>
+            </div>
+            <div class="stack-block block-api">
+                <div class="layer-label">Layer 02</div>
+                <div class="layer-title">API — ASP.NET Core</div>
+            </div>
+            <div class="stack-block block-db">
+                <div class="layer-label">Layer 03</div>
+                <div class="layer-title">Data — PostgreSQL</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="wrap">
+        <div class="section-head reveal">
+            <h2>About</h2>
+            <span class="section-num mono">01 / Profile</span>
+        </div>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <p>I'm a full-stack software engineer based in Dekwaneh, Beirut, focused on building complete systems rather than isolated features. Most of my recent work is centered on ASP.NET Core and Vue 3, but I move comfortably across Flutter and Firebase depending on what a project calls for.</p>
+                <p>I'm currently building an enterprise-grade inventory and e-commerce platform from the ground up — backend architecture, database design, admin tooling, and customer-facing storefront included. I like problems that touch the whole stack.</p>
+            </div>
+            <div class="fact-list reveal">
+                <div class="fact"><span class="fact-label">LOCATION</span><span>Zahle, Lebanon / Dekwaneh, Beirut</span></div>
+                <div class="fact"><span class="fact-label">EDUCATION</span><span>BS Computer Science, AUST '24</span></div>
+                <div class="fact"><span class="fact-label">FOCUS</span><span>.NET / Vue / Full-Stack</span></div>
+                <div class="fact"><span class="fact-label">STATUS</span><span>Open to opportunities</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience">
+    <div class="wrap">
+        <div class="section-head reveal">
+            <h2>Experience</h2>
+            <span class="section-num mono">02 / Timeline</span>
+        </div>
+        <div class="timeline">
+            <div class="exp-card reveal">
+                <div class="exp-top">
+                    <div class="exp-role">Software Developer <span class="exp-org">@@ Scrumium</span></div>
+                    <div class="exp-date">Feb 2025 — Jan 2026</div>
+                </div>
+                <ul class="exp-desc">
+                    <li>Developed and maintained enterprise web applications built on ASP.NET, C#, and SharePoint.</li>
+                    <li>Built and customized SharePoint Web Parts (ASCX) integrated with Vue.js for dynamic, responsive UIs.</li>
+                    <li>Implemented pagination, filtering, and dynamic content features inside live production components without breaking existing functionality.</li>
+                    <li>Diagnosed and fixed layout overflow, rendering, and cross-browser issues.</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">ASP.NET</span><span class="tag">C#</span><span class="tag">SharePoint</span><span class="tag">Vue.js</span><span class="tag">REST APIs</span>
+                </div>
+            </div>
+            <div class="exp-card reveal">
+                <div class="exp-top">
+                    <div class="exp-role">Software Developer Intern <span class="exp-org">@@ Megabee</span></div>
+                    <div class="exp-date">Aug — Oct 2023</div>
+                </div>
+                <ul class="exp-desc">
+                    <li>Independently designed and built a watch auction application over a 2-month internship.</li>
+                    <li>Owned both the Flutter mobile frontend and the backend as the sole developer.</li>
+                    <li>Implemented listing, bidding, and auction functionality end-to-end.</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">REST APIs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="wrap">
+        <div class="section-head reveal">
+            <h2>Projects</h2>
+            <span class="section-num mono">03 / Selected Work</span>
+        </div>
+        <div class="project-grid">
+            @foreach (var p in VisibleProjects)
+            {
+                <div class="project-card @(p.Flagship ? "flagship" : "") reveal" style="--accent-color:@p.AccentVar">
+                    <div>
+                        <div class="project-tag-eyebrow">@p.Eyebrow</div>
+                        <h3>@((MarkupString)p.Title)</h3>
+                        <p>@p.Description</p>
+                        @if (p.Flagship)
+                        {
+                            <div class="tags">
+                                @foreach (var t in p.Tags)
+                                {
+                                    <span class="tag">@t</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <ul>
+                        @foreach (var b in p.Bullets)
+                        {
+                            <li>@((MarkupString)b)</li>
+                        }
+                    </ul>
+                    @if (!p.Flagship)
+                    {
+                        <div class="tags">
+                            @foreach (var t in p.Tags)
+                            {
+                                <span class="tag">@t</span>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        @if (ShowLoadMore)
+        {
+            <div style="text-align:center;margin-top:36px;">
+                <button class="btn btn-outline" @onclick="() => showAllProjects = true">Load More Projects ↓</button>
+            </div>
+        }
+    </div>
+</section>
+
+<section id="skills">
+    <div class="wrap">
+        <div class="section-head reveal">
+            <h2>Skills</h2>
+            <span class="section-num mono">04 / Stack</span>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-col reveal" style="--col-color:var(--blue-bright)">
+                <h3>Frontend</h3>
+                <div class="skill-sub">// interface layer</div>
+                <div class="skill-tags">
+                    <span>Vue.js</span><span>TypeScript</span><span>JavaScript</span><span>Flutter / Dart</span><span>HTML5</span><span>CSS3</span>
+                </div>
+            </div>
+            <div class="skill-col reveal" style="--col-color:var(--green-bright)">
+                <h3>Backend</h3>
+                <div class="skill-sub">// application layer</div>
+                <div class="skill-tags">
+                    <span>C#</span><span>ASP.NET Core</span><span>Entity Framework Core</span><span>SharePoint (ASCX)</span><span>REST APIs</span>
+                </div>
+            </div>
+            <div class="skill-col reveal" style="--col-color:var(--red-bright)">
+                <h3>Data &amp; Tools</h3>
+                <div class="skill-sub">// persistence &amp; workflow</div>
+                <div class="skill-tags">
+                    <span>PostgreSQL</span><span>SQL Server</span><span>Firebase</span><span>Git / GitHub</span><span>Agile / Scrum</span><span>QuestPDF</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="certs">
+    <div class="wrap">
+        <div class="section-head reveal">
+            <h2>Certifications</h2>
+            <span class="section-num mono">05 / Credentials</span>
+        </div>
+        <div class="cert-row">
+            <div class="cert-item reveal"><span class="cert-dot"></span>CCNA 1: Introduction to Networks — Cisco</div>
+            <div class="cert-item reveal"><span class="cert-dot"></span>CCNA 2: Switching, Routing &amp; Wireless — Cisco</div>
+            <div class="cert-item reveal"><span class="cert-dot"></span>CCNA 3: Enterprise Networking &amp; Security — Cisco</div>
+            <div class="cert-item reveal"><span class="cert-dot"></span>Entrepreneurship Certificate — Daher Foundation</div>
+            <div class="cert-item reveal"><span class="cert-dot"></span>MIT App Inventor Certificate — Chamber of Commerce</div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <div class="wrap">
+        <div class="eyebrow" style="justify-content:center;">Let's work together</div>
+        <h2>Building something?<br>Let's talk.</h2>
+        <p>Open to full-stack roles and freelance projects.</p>
+        <div class="contact-links">
+            <a href="mailto:hamzomichel287@@gmail.com" class="btn btn-primary">Email Me →</a>
+            <a href="https://www.linkedin.com/in/micho-hamzo-62a8b7238/" target="_blank" class="btn btn-outline">LinkedIn</a>
+            <a href="https://github.com/michoh0amzo" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">© 2026 Michel Hamzo — built from scratch, layer by layer.</div>
+</footer>
+
+@code {
+    private bool showAllProjects = false;
+    private List<ProjectItem> projects = new()
+{
+    new ProjectItem {
+        Flagship = true,
+        Eyebrow = "Personal Project — In Progress",
+        Title = "Enterprise Inventory &amp; E-Commerce Management System",
+        Description = "A full-stack platform combining an admin management panel with a customer-facing shopping portal — built to enterprise standards from the schema up.",
+        Tags = new() { "ASP.NET Core", "EF Core", "PostgreSQL", "Vue 3", "TypeScript" },
+        Bullets = new() {
+            "Layered backend: Controllers, Services, DTOs, EF Core Migrations, REST principles, DI",
+            "Modules for inventory, orders, suppliers, bundles, promotions, and reporting",
+            "Background service for automatic low-stock alerts",
+            "PDF invoice generation via QuestPDF"
+        },
+        AccentVar = "var(--green-bright)"
+    },
+    new ProjectItem {
+        Eyebrow = "Senior Capstone",
+        Title = "Plantastic",
+        Description = "AI-powered plant guide and disease diagnostic app, cross-platform + web, with geolocation-aware recommendations.",
+        Bullets = new() { "React frontend, Firebase backend", "Integrated &amp; fine-tuned an existing detection model", "Android, iOS, and web" },
+        Tags = new() { "React", "Firebase" },
+        AccentVar = "var(--blue-bright)"
+    },
+    new ProjectItem {
+        Eyebrow = "Megabee Internship",
+        Title = "Watch Auction App",
+        Description = "Solo-built mobile auction app — frontend and backend delivered end-to-end in eight weeks.",
+        Bullets = new() { "Flutter mobile frontend", "Bidding &amp; auction logic backend" },
+        Tags = new() { "Flutter", "Dart" },
+        AccentVar = "var(--red-bright)"
+    }
+    // Add more ProjectItem entries here anytime — Load More appears automatically once you pass 4.
+};
+
+    private IEnumerable<ProjectItem> VisibleProjects => showAllProjects ? projects : projects.Take(4);
+    private bool ShowLoadMore => projects.Count > 4 && !showAllProjects;
+
+    public class ProjectItem
+    {
+        public string Eyebrow { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public List<string> Bullets { get; set; } = new();
+        public List<string> Tags { get; set; } = new();
+        public string AccentVar { get; set; } = "var(--blue-bright)";
+        public bool Flagship { get; set; } = false;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("initPortfolio");
+        }
+    }
+}
